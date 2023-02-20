@@ -1,5 +1,5 @@
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import React from "react";
 
 export default function index() {
-  return <div></div>;
+  return <div>index</div>;
 }

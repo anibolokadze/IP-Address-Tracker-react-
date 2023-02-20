@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IpData } from "./Interface";
 import SearchIP from "./Components/SearchIP/index";
-import Map from "./Components/Map/index";
+
 function App() {
   const [data, setData] = useState<IpData | null>(null);
   const [ipAddress, setIpAddress] = useState("");
@@ -10,7 +10,6 @@ function App() {
   useEffect(() => {
     const defaultIpAddress = "";
     setIpAddress(defaultIpAddress);
-
     axios
       .get<IpData>(`https://ipapi.co/${defaultIpAddress}/json/`)
       .then((response) => setData(response.data))
@@ -27,7 +26,6 @@ function App() {
         ipAddress={ipAddress}
         data={data}
       />
-      <Map />
     </div>
   );
 }

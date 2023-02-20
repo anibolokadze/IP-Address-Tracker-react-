@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { IpData } from "../../Interface";
 
 export default function index({ setIpAddress, setData, ipAddress, data }: any) {
@@ -16,6 +16,7 @@ export default function index({ setIpAddress, setData, ipAddress, data }: any) {
       });
     setIpAddress(ipAddress);
   };
+
   return (
     <>
       <div>
