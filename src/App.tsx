@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { IpData } from "./Interface";
+import SearchIP from "./Components/SearchIP/index";
+import Map from "./Components/Map/index";
 function App() {
+  const [data, setData] = useState<IpData | null>(null);
+  const [ipAddress, setIpAddress] = useState("");
+
+  useEffect(() => {
+    const defaultIpAddress = "";
+    setIpAddress(defaultIpAddress);
+
+    axios
+      .get<IpData>(`https://ipapi.co/${defaultIpAddress}/json/`)
+      .then((response) => setData(response.data))
+      .catch((error) => {
+        setData(null);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SearchIP
+        setIpAddress={setIpAddress}
+        setData={setData}
+        ipAddress={ipAddress}
+        data={data}
+      />
+      <Map />
     </div>
   );
 }
