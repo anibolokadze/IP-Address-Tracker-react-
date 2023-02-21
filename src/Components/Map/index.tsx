@@ -10,7 +10,7 @@ export default function index({ lat, lng }: MapProps) {
   };
   return (
     <div>
-      <MapContainer center={[lat, lng]} zoom={13}>
+      <MapContainer center={[lat, lng]} zoom={13} scrollWheelZoom={false}>
         <LiveLocation center={[lat, lng]} lat={0} lng={0} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
