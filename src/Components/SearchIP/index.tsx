@@ -1,61 +1,41 @@
 import axios from "axios";
-import { useState } from "react";
-import { IpData } from "../../Interface";
+import React, { useEffect } from "react";
+import arrow from "../../images/icon-arrow.svg";
+export default function Index({ setData, setLat, setLng, setIP, IP }: any) {
+  const search = async () => {
+    const response = await axios.get(
+      `https://geo.ipify.org/api/v2/country,city?apiKey=at_f08ryL7xKDMbFwmM67YjKn9eNbAbQ&ipAddress=${IP}`
+    );
+    const Data = await response.data;
+    setData(Data);
+    setLat(Data.location.lat);
+    setLng(Data.location.lng);
+  };
 
-export default function index({
-  setIpAddress,
-  setData,
-  ipAddress,
-  data,
-  setCoords,
-}: any) {
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIpAddress(event.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIP(e.target.value);
   };
-  const handleSearchClick = () => {
-    axios
-      .get<IpData>(`https://ipapi.co/${ipAddress}/json/`)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        setData(null);
-      });
-    setIpAddress(ipAddress);
+
+  const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      search();
+    }
   };
+
+  useEffect(() => {
+    search();
+  }, []);
 
   return (
-    <>
-      <div>
-        <input
-          type="text"
-          value={ipAddress}
-          onChange={handleInputChange}
-          placeholder="Search for any IP address "
-        />
-        <button onClick={handleSearchClick}>Search</button>
-      </div>
-
-      {data ? (
-        <div>
-          <p>IP Address: {data.ip}</p>
-          <p>
-            Timezone:{" "}
-            {data.utc_offset
-              ? `${data.utc_offset.slice(0, 3)}:${data.utc_offset.slice(3)}`
-              : "Timezone not found"}
-          </p>
-          <p>
-            Location:{" "}
-            {data.city && data.country_code
-              ? `${data.city}, ${data.country_code}`
-              : "Location not found"}
-          </p>
-          <p>ISP: {data.org ?? "ISP not found"}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </>
+    <div>
+      <input
+        placeholder="Search for any IP address or domain"
+        onChange={handleChange}
+        onKeyPress={keyPress}
+      />
+      <button onClick={search}>
+        <img src={arrow} />
+      </button>
+    </div>
   );
 }

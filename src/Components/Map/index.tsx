@@ -1,47 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import L from "leaflet";
-import "../../App.css";
-import { MapProps } from "../../Interface";
-
-function Index(props: MapProps) {
-  const [lat, setLat] = useState(0);
-  const [long, setLong] = useState(0);
-
-  function ChangeView(props: any) {
+import React from "react";
+import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import * as L from "leaflet";
+export default function index({ lat, lng }: any) {
+  const LiveLocation = ({ center }: any) => {
     const map = useMap();
-    map.setView(props.center);
+    map.setView(center);
     return null;
-  }
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLat(position.coords.latitude);
-      setLong(position.coords.longitude);
-    });
-  }, []);
-
+  };
   return (
-    <>
-      <div className="App">
-        <MapContainer
-          center={[lat, long]}
-          zoom={13}
-          zoomControl={true}
-          scrollWheelZoom={true}
-        >
-          <ChangeView center={[lat, long]} />
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={[lat, long]}></Marker>
-        </MapContainer>
-      </div>
-    </>
+    <div>
+      <MapContainer center={[lat, lng]} zoom={13}>
+        <LiveLocation center={[lat, lng]} />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        <Marker position={[lat, lng]}></Marker>
+      </MapContainer>
+    </div>
   );
 }
-export default Index;
 const svgIcon = L.divIcon({
   html: `
   <svg xmlns="http://www.w3.org/2000/svg"

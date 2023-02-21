@@ -1,41 +1,27 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { IpData } from "./Interface";
-import SearchIP from "./Components/SearchIP/index";
+import { useState } from "react";
+import Search from "./Components/SearchIP/index";
+import Result from "./Components/Result/Index";
 import Map from "./Components/Map/index";
+import "./App.css";
+import { IpData } from "./Interface";
 
-function App() {
-  const [data, setData] = useState<IpData | null>(null);
-  const [ipAddress, setIpAddress] = useState("");
-
-  const getData = () => {
-    const defaultIpAddress = "";
-    setIpAddress(defaultIpAddress);
-    axios
-      .get<IpData>(`https://ipapi.co/${defaultIpAddress}/json/`)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        setData(null);
-      });
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+export default function App() {
+  const [IP, setIP] = useState<string>("");
+  const [data, setData] = useState<IpData>();
+  const [lat, setLat] = useState<number>(0);
+  const [lng, setLng] = useState<number>(0);
 
   return (
-    <div>
-      <SearchIP
-        setIpAddress={setIpAddress}
+    <>
+      <Search
         setData={setData}
-        ipAddress={ipAddress}
-        data={data}
+        setLat={setLat}
+        setLng={setLng}
+        setIP={setIP}
+        IP={IP}
       />
-      <Map lat={0} long={0} />
-    </div>
+      <Result data={data} />
+      <Map lat={lat} lng={lng} />
+    </>
   );
 }
-
-export default App;
