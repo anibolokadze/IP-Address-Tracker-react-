@@ -45,6 +45,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 24px;
 `;
 const Input = styled.input`
   outline: none;
@@ -54,7 +55,10 @@ const Input = styled.input`
   height: 58px;
   color: #2c2c2c;
   padding-left: 24px;
-  margin-bottom: 24px;
+  @media screen and (min-width: 1200px) {
+    width: 500px;
+    font-size: 18px;
+  }
 `;
 const Search = styled.button`
   height: 58px;

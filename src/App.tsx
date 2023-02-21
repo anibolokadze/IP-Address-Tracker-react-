@@ -21,6 +21,7 @@ export default function App() {
         setLng={setLng}
         setIP={setIP}
         IP={IP}
+        data={data}
       />
       <Result data={data} />
 
