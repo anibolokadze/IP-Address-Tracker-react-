@@ -8,15 +8,21 @@ function App() {
   const [data, setData] = useState<IpData | null>(null);
   const [ipAddress, setIpAddress] = useState("");
 
-  useEffect(() => {
+  const getData = () => {
     const defaultIpAddress = "";
     setIpAddress(defaultIpAddress);
     axios
       .get<IpData>(`https://ipapi.co/${defaultIpAddress}/json/`)
-      .then((response) => setData(response.data))
+      .then((response) => {
+        setData(response.data);
+      })
       .catch((error) => {
         setData(null);
       });
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
   return (

@@ -1,14 +1,6 @@
 @import url("~leaflet/dist/leaflet.css");
 
 .leaflet-container {
-  width: 375px;
-  height: 500px;
-  z-index: -1;
-}
-
-@media screen and (min-width: 800px) {
-  .leaflet-container {
-    width: 800px;
-    height: 400px;
-  }
+  width: 100%;
+  height: 70vh;
 }

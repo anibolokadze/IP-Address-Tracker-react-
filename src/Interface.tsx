@@ -4,6 +4,11 @@ export interface IpData {
   country_code?: string;
   utc_offset?: number;
   org?: string;
-  latitude?: number;
-  longitude?: number;
+  lat: number;
+  long: number;
+}
+
+export interface MapProps {
+  lat: number;
+  long: number;
 }

@@ -1,16 +1,23 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useState } from "react";
 import { IpData } from "../../Interface";
 
-export default function index({ setIpAddress, setData, ipAddress, data }: any) {
+export default function index({
+  setIpAddress,
+  setData,
+  ipAddress,
+  data,
+  setCoords,
+}: any) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIpAddress(event.target.value);
   };
-
   const handleSearchClick = () => {
     axios
       .get<IpData>(`https://ipapi.co/${ipAddress}/json/`)
-      .then((response) => setData(response.data))
+      .then((response) => {
+        setData(response.data);
+      })
       .catch((error) => {
         setData(null);
       });
@@ -24,7 +31,7 @@ export default function index({ setIpAddress, setData, ipAddress, data }: any) {
           type="text"
           value={ipAddress}
           onChange={handleInputChange}
-          placeholder="Search for any IP address or domain"
+          placeholder="Search for any IP address "
         />
         <button onClick={handleSearchClick}>Search</button>
       </div>
@@ -32,7 +39,12 @@ export default function index({ setIpAddress, setData, ipAddress, data }: any) {
       {data ? (
         <div>
           <p>IP Address: {data.ip}</p>
-          <p>Timezone: {data.utc_offset ?? "Timezone not found"}</p>
+          <p>
+            Timezone:{" "}
+            {data.utc_offset
+              ? `${data.utc_offset.slice(0, 3)}:${data.utc_offset.slice(3)}`
+              : "Timezone not found"}
+          </p>
           <p>
             Location:{" "}
             {data.city && data.country_code
