@@ -11,3 +11,8 @@ export interface IpData {
     timezone: string;
   };
 }
+export interface MapProps {
+  lat: number;
+  lng: number;
+  center: [number, number];
+}

@@ -3,7 +3,7 @@ interface props {
   data: IpData | undefined;
 }
 export default function Index({ data }: props) {
-  const city = data?.location.region.slice(-8).replace(`'`, "");
+  const city = data?.location.region.replace(``, "");
 
   return (
     <div>

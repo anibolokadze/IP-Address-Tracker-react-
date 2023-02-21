@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import arrow from "../../images/icon-arrow.svg";
+
 export default function Index({ setData, setLat, setLng, setIP, IP }: any) {
   const search = async () => {
     const response = await axios.get(

@@ -1,8 +1,9 @@
-import React from "react";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, Marker } from "react-leaflet";
 import * as L from "leaflet";
-export default function index({ lat, lng }: any) {
-  const LiveLocation = ({ center }: any) => {
+import { MapProps } from "../../Interface";
+
+export default function index({ lat, lng }: MapProps) {
+  const LiveLocation = ({ center }: MapProps) => {
     const map = useMap();
     map.setView(center);
     return null;
@@ -10,12 +11,11 @@ export default function index({ lat, lng }: any) {
   return (
     <div>
       <MapContainer center={[lat, lng]} zoom={13}>
-        <LiveLocation center={[lat, lng]} />
+        <LiveLocation center={[lat, lng]} lat={0} lng={0} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-
         <Marker position={[lat, lng]}></Marker>
       </MapContainer>
     </div>
