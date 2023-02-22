@@ -1,5 +1,5 @@
 # 🎉 IP address tracker
-Built with react, typescript, styled-components.
+Built with react, typescript, styled-components and react leaflet.
 
 ![desktop-design](https://user-images.githubusercontent.com/89190087/220601440-45f261e7-7f9a-4ced-8dac-896b2e2d26fa.jpg)
 
